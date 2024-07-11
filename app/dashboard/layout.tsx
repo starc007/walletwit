@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import Navbar from "@/components/appComp/Navbar";
-import { GeistSans } from "geist/font/sans";
-
+import ProtectedRoute from "@/components/appComp/ProtectedRoute";
 export const metadata: Metadata = {
   title: "walletwit: Your account analytics",
   description:
@@ -17,12 +14,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className={GeistSans.className}>
-        <Navbar />
-        <main className="container mx-auto">{children}</main>
-      </body>
-    </html>
-  );
+  return <ProtectedRoute>{children}</ProtectedRoute>;
 }
