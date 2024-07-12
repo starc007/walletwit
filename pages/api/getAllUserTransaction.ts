@@ -1,4 +1,3 @@
-import { heliusServerClient } from "@/utils/helius/serverClient";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -6,14 +5,12 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { publicKey } = req.body;
+  const key = process.env.NEXT_PUBLIC_HELIUS_KEY;
+  const url = `https://api.helius.xyz/v0/addresses/${publicKey?.toString()!}/transactions?api-key=${key}`;
   try {
-    const response = await heliusServerClient.rpc.getTokenAccounts({
-      owner: publicKey?.toString()!,
-      page: 1,
-      options: {
-        showZeroBalance: false,
-      },
-    });
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log("response", data);
     res.status(200).json(response);
   } catch (error) {
     console.log("error", error);

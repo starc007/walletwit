@@ -13,6 +13,8 @@ export default async function handler(
       limit: 30,
       displayOptions: {
         showGrandTotal: true,
+        showNativeBalance: true,
+        showFungible: true,
       },
     });
     res.status(200).json(response);
