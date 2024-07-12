@@ -2,7 +2,8 @@
 import { rasters } from "@/assets";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
+import { useWallet, UnifiedWalletButton } from "@jup-ag/wallet-adapter";
 
 import {
   Button,
@@ -12,11 +13,18 @@ import {
   DropdownItem,
 } from "../UI";
 
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+import { useRouter, usePathname } from "next/navigation";
 
 const Navbar = () => {
   const router = useRouter();
+  const { publicKey } = useWallet();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (publicKey && pathname !== "/dashboard") {
+      router.push("/dashboard");
+    }
+  }, [publicKey, pathname]);
 
   return (
     <nav className="glass_bg px-4 border-b border-gray-50 h-16 flex items-center sticky top-0 z-10">
@@ -32,7 +40,22 @@ const Navbar = () => {
           <span className="text-xl font-semibold">walletwit</span>
         </Link>
         <div className="flex items-center gap-2">
-          <Button variant="special">connect wallet</Button>
+          {/* <Button
+            onClick={() => {
+              // if (connecting) {
+              //   return;
+              // }
+              // connect();
+              handleClick();
+            }}
+            variant="special"
+          >
+            connect wallet
+          </Button> */}
+          <UnifiedWalletButton
+            overrideContent={<Button variant="special">connect wallet</Button>}
+            currentUserClassName="border !rounded-md !h-9"
+          />
         </div>
       </div>
     </nav>

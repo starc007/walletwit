@@ -1,4 +1,5 @@
 import React from "react";
+import { UnifiedWalletButton } from "@jup-ag/wallet-adapter";
 import { Button } from "../UI";
 
 const UnauthorizedState = () => {
@@ -38,7 +39,12 @@ const UnauthorizedState = () => {
         <p className="text-center text-gray-300 mt-4">
           Please connect your wallet to see some magic!
         </p>
-        <Button className="mt-5 !h-11">Connect Wallet</Button>
+        <UnifiedWalletButton
+          overrideContent={
+            <Button className="mt-5 !h-11">Connect Wallet</Button>
+          }
+          currentUserClassName="border !rounded-md !h-11"
+        />
       </div>
     </div>
   );

@@ -1,18 +1,21 @@
+"use client";
+
 import React, { FC } from "react";
 import UnauthorizedState from "./UnauthorizedState";
+import { useWallet } from "@jup-ag/wallet-adapter";
 
 interface Props {
   children: React.ReactNode;
 }
 
 const ProtectedRoute: FC<Props> = ({ children }) => {
-  const isLoggedIn = false;
+  const { publicKey } = useWallet();
 
-  if (!isLoggedIn) {
+  if (!publicKey) {
     return <UnauthorizedState />;
   }
 
-  return <div className="">{children}</div>;
+  return children;
 };
 
 export default ProtectedRoute;

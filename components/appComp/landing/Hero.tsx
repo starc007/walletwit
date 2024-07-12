@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import { UnifiedWalletButton } from "@jup-ag/wallet-adapter";
 import { Button } from "@/components/UI";
 import AnimatedShinyText from "../AnimatedShinyText";
 
@@ -38,7 +39,10 @@ const Hero = () => {
           </span>
         </p>
         <div className="flex flex-wrap justify-center gap-5 mt-8">
-          <Button className="!h-11">Connect Wallet</Button>
+          <UnifiedWalletButton
+            overrideContent={<Button className="!h-11">Connect Wallet</Button>}
+            currentUserClassName="border !rounded-md !h-11"
+          />
         </div>
       </motion.div>
     </section>
