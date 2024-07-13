@@ -1,4 +1,3 @@
-import { rasters } from "@/assets";
 import { shortenAddress } from "@/utils/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,9 +19,6 @@ const NFTCard: FC<INFT> = ({
         className="w-full h-52 object-cover rounded-xl hover:scale-105 transition-all duration-300"
         width={400}
         height={400}
-        onError={(e) => {
-          e.currentTarget.src = "https://via.placeholder.com/400";
-        }}
       />
       <div className="flex flex-col gap-2 mt-5 px-2">
         <h2 className="text-xl font-semibold">{name}</h2>

@@ -13,15 +13,15 @@ import React from "react";
 
 const tabList = [
   {
-    title: "tokens",
+    title: "Tokens",
     content: <AllTokens />,
   },
   {
-    title: "nfts",
+    title: "Nfts",
     content: <AllNfts />,
   },
   {
-    title: "transactions",
+    title: "Transactions",
     content: <AllTransactions />,
   },
 ];

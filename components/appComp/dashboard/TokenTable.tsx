@@ -1,7 +1,8 @@
 import { FC } from "react";
-import BarLoader from "../common/BarLoader";
 import Image from "next/image";
 import { formatNumber, shortenAddress } from "@/utils/utils";
+import Link from "next/link";
+import { useDataContext } from "@/context/DataContext";
 
 interface ITokenTable {
   tokens: IToken[];
@@ -9,12 +10,20 @@ interface ITokenTable {
 }
 
 const TokenTable: FC<ITokenTable> = ({ tokens, loading }) => {
+  const { tokensPrices } = useDataContext();
+
+  const getPrice = (token: IToken) => {
+    const price = tokensPrices[token.address]?.price;
+    const totalTokens = token.amount / 10 ** token.decimals;
+    return (price * totalTokens).toFixed(2);
+  };
+
   return (
     <div className="px-4 sm:px-0">
       <div className="flex flex-col">
         <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-            <div className="overflow-hidden border border-gray-100 md:rounded-xl">
+            <div className="overflow-hidden border border-gray-100 rounded-xl">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
@@ -40,31 +49,17 @@ const TokenTable: FC<ITokenTable> = ({ tokens, loading }) => {
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold"
                     >
+                      value
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold"
+                    >
                       address
                     </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 bg-white">
-                  {/* If loading is true, show loading spinner */}
-                  {loading && (
-                    <tr>
-                      <td colSpan={4}>
-                        <BarLoader />
-                      </td>
-                    </tr>
-                  )}
-
-                  {/* If users is empty, show no data */}
-                  {!loading && tokens.length === 0 && (
-                    <tr>
-                      <td colSpan={4}>
-                        <div className="flex justify-center items-center p-4">
-                          <p className="text-gray-500">No data found</p>
-                        </div>
-                      </td>
-                    </tr>
-                  )}
-
                   {!loading &&
                     tokens.length > 0 &&
                     tokens.map((token, idx) => {
@@ -97,7 +92,17 @@ const TokenTable: FC<ITokenTable> = ({ tokens, loading }) => {
                             {formatNumber(token?.amount, token?.decimals)}
                           </td>
                           <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
-                            {shortenAddress(token?.address)}
+                            ${getPrice(token)}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
+                            <Link
+                              href={`https://solscan.io/token/${token?.address}`}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-blue-600 hover:text-blue-500 underline"
+                            >
+                              {shortenAddress(token?.address)}
+                            </Link>
                           </td>
                         </tr>
                       );

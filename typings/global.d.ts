@@ -47,4 +47,20 @@ export declare global {
     }[];
     royaltyPercentage: number;
   }
+
+  interface ITransaction {
+    signature: string;
+    timestamp: number;
+    type: string;
+    fee: number;
+    source: string;
+    nativeBalanceChange: number;
+    description: string;
+  }
+  interface ITokenPrice {
+    id: string;
+    mintSymbol: string;
+    price: number;
+    vsTokenSymbol: string;
+  }
 }

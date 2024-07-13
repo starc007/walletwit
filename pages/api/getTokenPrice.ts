@@ -4,11 +4,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { publicKey } = req.body;
-  const key = process.env.NEXT_PUBLIC_HELIUS_KEY;
-  const url = `https://api.helius.xyz/v0/addresses/${publicKey!}/transactions?api-key=${key}&limit=50`;
+  const { tokenAddress } = req.body;
+
+  const commaSeparatedTokenAddresses = tokenAddress.join(",");
+  const url = `https://price.jup.ag/v6/price?ids=${commaSeparatedTokenAddresses}`;
   try {
     const response = await fetch(url);
+    console.log("response", response);
     const data = await response.json();
     res.status(200).json(data);
   } catch (error) {

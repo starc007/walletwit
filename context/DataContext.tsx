@@ -10,12 +10,20 @@ import {
   useState,
 } from "react";
 import { useWallet } from "@jup-ag/wallet-adapter";
-import { getAllNFTs, getAllTokens } from "@/api/api";
+import {
+  getAllNFTs,
+  getAllTokens,
+  getTokenInfo,
+  getTokenPrice,
+} from "@/api/api";
 
 interface DataContextProps {
   nftData: NftData;
   tokensData: TokenData;
   isLoading: boolean;
+  tokensPrices: Record<string, ITokenPrice>;
+  loader: boolean;
+  tokensInfo: IToken[];
 }
 
 export const initialState: DataContextProps = {
@@ -38,6 +46,9 @@ export const initialState: DataContextProps = {
     token_accounts: [],
   },
   isLoading: false,
+  tokensPrices: {},
+  loader: false,
+  tokensInfo: [],
 };
 
 export const DataContext = createContext<DataContextProps>(initialState);
@@ -52,22 +63,69 @@ export const DataContextProvider: FC<{ children: ReactNode }> = ({
   const [isError, setIsError] = useState(false);
   const isFetched = useRef(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [loader, setLoader] = useState(false);
+  const [tokensPrices, setTokensPrices] = useState<Record<string, ITokenPrice>>(
+    {}
+  );
+  const [tokensInfo, setTokensInfo] = useState<IToken[] | []>([]);
+
+  const getTokensInfo = async (data: any, tokensDataInfo: any) => {
+    if (data) {
+      const tokensInfo = data.map((token: any) => {
+        const amount = tokensDataInfo.token_accounts.find(
+          (tokenAccount: any) => tokenAccount.mint === token.account
+        )?.amount;
+
+        return {
+          name: token.offChainMetadata?.metadata?.name || "-",
+          symbol: token.offChainMetadata?.metadata?.symbol || "-",
+          logo:
+            token.offChainMetadata?.metadata?.image ||
+            "https://placehold.co/200x200",
+          amount: amount,
+          address: token.account,
+          decimals:
+            token?.onChainAccountInfo?.accountInfo?.data?.parsed?.info
+              ?.decimals,
+        };
+      });
+
+      const filteredTokens = tokensInfo.filter((token: any) => token);
+      setTokensInfo(filteredTokens);
+    }
+  };
 
   const parallelFetch = async () => {
     setIsLoading(true);
-    const [nftData, tokensData] = await Promise.all([
+    const [nftData, tokensDataInfo] = await Promise.all([
       getAllNFTs(publicKey?.toString()!),
       getAllTokens(publicKey?.toString()!),
     ]);
     setIsLoading(false);
 
-    console.log("nftData", nftData);
-
     if (nftData) {
       setNftData(nftData);
     }
-    if (tokensData) {
+    if (tokensInfo) {
       setTokensData(tokensData);
+
+      if (tokensDataInfo?.token_accounts.length > 0) {
+        const allMintAddress = tokensDataInfo.token_accounts.map(
+          (token: any) => token.mint
+        );
+        setLoader(true);
+        const [prices, info] = await Promise.all([
+          getTokenPrice(allMintAddress),
+          getTokenInfo(allMintAddress),
+        ]);
+        setLoader(false);
+        if (prices) {
+          setTokensPrices(prices);
+        }
+        if (info) {
+          getTokensInfo(info, tokensDataInfo);
+        }
+      }
     }
 
     if (!nftData && !tokensData) {
@@ -84,7 +142,16 @@ export const DataContextProvider: FC<{ children: ReactNode }> = ({
   }, [isFetched, publicKey]);
 
   return (
-    <DataContext.Provider value={{ nftData, tokensData, isLoading }}>
+    <DataContext.Provider
+      value={{
+        nftData,
+        tokensData,
+        isLoading,
+        tokensPrices,
+        loader,
+        tokensInfo,
+      }}
+    >
       {children}
     </DataContext.Provider>
   );

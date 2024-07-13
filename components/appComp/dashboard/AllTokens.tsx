@@ -7,51 +7,7 @@ import { rasters } from "@/assets";
 import TokenTable from "./TokenTable";
 
 const AllTokens = () => {
-  const { tokensData } = useDataContext();
-  const [loader, setLoader] = React.useState(false);
-  const [tokensInfo, setTokensInfo] = React.useState<IToken[] | []>([]);
-
-  const getTokensInfo = async (mintAddress: string[]) => {
-    setLoader(true);
-    const response = await getTokenInfo(mintAddress);
-    setLoader(false);
-    if (response) {
-      const tokensInfo = response.map((token: any) => {
-        const amount = tokensData.token_accounts.find(
-          (tokenAccount) => tokenAccount.mint === token.account
-        )?.amount;
-
-        if (
-          !token.offChainMetadata?.metadata?.name ||
-          token.onChainMetadata.error === "EMPTY_ACCOUNT"
-        ) {
-          return;
-        }
-        return {
-          name: token.offChainMetadata.metadata.name,
-          symbol: token.offChainMetadata.metadata.symbol,
-          logo: token.offChainMetadata.metadata.image,
-          amount: amount,
-          address: token.account,
-          decimals:
-            token?.onChainAccountInfo?.accountInfo?.data?.parsed?.info
-              ?.decimals,
-        };
-      });
-
-      const filteredTokens = tokensInfo.filter((token: any) => token);
-      setTokensInfo(filteredTokens);
-    }
-  };
-
-  useEffect(() => {
-    if (tokensData?.token_accounts.length > 0) {
-      const allMintAddress = tokensData.token_accounts.map(
-        (token) => token.mint
-      );
-      getTokensInfo(allMintAddress);
-    }
-  }, [tokensData]);
+  const { loader, tokensInfo } = useDataContext();
 
   return loader ? (
     <div className="mt-5">
