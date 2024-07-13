@@ -15,3 +15,4 @@ and more in a fun and simplified way.
 
 1. Add polling to fetch data periodically
 2. Add pagination in Nfts & transaction tabs
+3. Add NFT detail page
