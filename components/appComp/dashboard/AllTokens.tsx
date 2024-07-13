@@ -62,10 +62,8 @@ const AllTokens = () => {
     <div className="mt-1">
       {tokensInfo.length > 0 ? (
         <>
-          <p className="text-sm text-primaryLight/50 font-medium">
-            {tokensData.total} coins in your wallet
-          </p>
-          <div className="mt-6">
+          <h2 className="text-xl font-medium text-primary/50">Your tokens</h2>
+          <div className="mt-2">
             <TokenTable tokens={tokensInfo} loading={loader} />
           </div>
         </>
