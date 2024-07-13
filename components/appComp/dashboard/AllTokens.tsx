@@ -16,7 +16,6 @@ const AllTokens = () => {
     const response = await getTokenInfo(mintAddress);
     setLoader(false);
     if (response) {
-      console.log("response", response);
       const tokensInfo = response.map((token: any) => {
         const amount = tokensData.token_accounts.find(
           (tokenAccount) => tokenAccount.mint === token.account

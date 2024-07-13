@@ -39,15 +39,8 @@ const Dashboard = () => {
         </h2>
         <Overview />
         <div className="mt-10">
-          <h2 className="text-xl mb-5 font-semibold text-primary/50">
-            wallet info
-          </h2>
           <Tabs tabList={tabList} />
         </div>
-        {/* <h2 className="text-xl mt-10 font-semibold text-primary/60">
-          your tokens
-        </h2>
-        <AllTokens /> */}
       </div>
     </DataContextProvider>
   );

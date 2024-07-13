@@ -34,4 +34,17 @@ export declare global {
     address: string;
     decimals: number;
   }
+
+  interface INFT {
+    name: string;
+    description: string;
+    image: string;
+    id: string;
+    creators: {
+      address: string;
+      verified: boolean;
+      share: number;
+    }[];
+    royaltyPercentage: number;
+  }
 }

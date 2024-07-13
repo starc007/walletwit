@@ -62,7 +62,6 @@ export const DataContextProvider: FC<{ children: ReactNode }> = ({
     setIsLoading(false);
 
     console.log("nftData", nftData);
-    console.log("tokensData", tokensData);
 
     if (nftData) {
       setNftData(nftData);

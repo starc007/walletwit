@@ -10,8 +10,7 @@ export default async function handler(
   try {
     const response = await fetch(url);
     const data = await response.json();
-    console.log("response", data);
-    res.status(200).json(response);
+    res.status(200).json(data);
   } catch (error) {
     console.log("error", error);
     res.status(500).json(error);
