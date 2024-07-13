@@ -18,3 +18,5 @@ Demo : [https://walletwit.vercel.app/](https://walletwit.vercel.app/)
 1. Add polling to fetch data periodically
 2. Add pagination in Nfts & transaction tabs
 3. Add NFT detail page
+4. Add more charts
+5. Add swap functionality, so that user don't have to go to other websites to swap
