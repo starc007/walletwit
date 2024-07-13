@@ -14,7 +14,6 @@ export default async function handler(
       displayOptions: {
         showGrandTotal: true,
         showNativeBalance: true,
-        showFungible: true,
       },
     });
     res.status(200).json(response);

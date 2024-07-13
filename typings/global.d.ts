@@ -5,6 +5,11 @@ export declare global {
     grand_total: number;
     page: number;
     total: number;
+    nativeBalance: {
+      lamports: number;
+      price_per_sol: number;
+      total_price: number;
+    };
   }
   interface ITokenAccount {
     address: string;
@@ -19,10 +24,5 @@ export declare global {
     limit: number;
     page: number;
     total: number;
-  }
-
-  interface DataContextProps {
-    nftData: NftData;
-    tokensData: TokenData;
   }
 }

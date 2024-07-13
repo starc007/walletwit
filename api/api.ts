@@ -41,3 +41,25 @@ export const getAllTokens = async (address: string) => {
     return null;
   }
 };
+
+export const getAllTransactions = async (address: string) => {
+  try {
+    const response = await fetch("/api/getAllUserTransaction", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        publicKey: address,
+      }),
+    });
+    if (response.status === 200) {
+      const data = await response.json();
+      return data;
+    }
+    return null;
+  } catch (error) {
+    console.log("error", error);
+    return null;
+  }
+};
