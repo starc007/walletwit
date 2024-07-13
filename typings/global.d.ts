@@ -25,4 +25,13 @@ export declare global {
     page: number;
     total: number;
   }
+
+  interface IToken {
+    name: string;
+    symbol: string;
+    logo: string;
+    amount: number;
+    address: string;
+    decimals: number;
+  }
 }

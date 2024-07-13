@@ -11,3 +11,8 @@ body {
     text-wrap: balance;
   }
 }
+
+.glass_bg {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}

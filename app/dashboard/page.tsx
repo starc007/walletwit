@@ -1,5 +1,5 @@
 "use client";
-import { Overview } from "@/components/appComp/dashboard";
+import { AllTokens, Overview } from "@/components/appComp/dashboard";
 import { DataContextProvider } from "@/context/DataContext";
 import { shortenAddress } from "@/utils/utils";
 import { useWallet } from "@jup-ag/wallet-adapter";
@@ -14,9 +14,13 @@ const Dashboard = () => {
           Gm, {shortenAddress(publicKey?.toString()!)}
         </h2>
         <h2 className="text-xl mt-10 font-semibold text-primary/60">
-          Wallet Overview
+          wallet overview
         </h2>
         <Overview />
+        <h2 className="text-xl mt-10 font-semibold text-primary/60">
+          your tokens
+        </h2>
+        <AllTokens />
       </div>
     </DataContextProvider>
   );

@@ -64,10 +64,14 @@ export const DataContextProvider: FC<{ children: ReactNode }> = ({
     console.log("nftData", nftData);
     console.log("tokensData", tokensData);
 
-    if (nftData && tokensData) {
+    if (nftData) {
       setNftData(nftData);
+    }
+    if (tokensData) {
       setTokensData(tokensData);
-    } else {
+    }
+
+    if (!nftData && !tokensData) {
       setIsError(true);
     }
   };

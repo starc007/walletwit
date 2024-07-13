@@ -27,7 +27,7 @@ const Navbar = () => {
   }, [publicKey, pathname]);
 
   return (
-    <nav className="glass_bg px-4 border-b border-gray-50 h-16 flex items-center sticky top-0 z-10">
+    <nav className="glass_bg px-4 border-b border-gray-50 h-16 flex items-center sticky top-0 z-20">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/" className="flex items-center gap-1">
           <Image
