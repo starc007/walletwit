@@ -4,6 +4,7 @@ import wallet from "./wallet.png";
 import nft from "./nft.png";
 import transaction from "./transaction.png";
 import coin from "./coin.png";
+import notification from "./notification.png";
 
 export const rasters = {
   logo,
@@ -12,4 +13,5 @@ export const rasters = {
   nft,
   transaction,
   coin,
+  notification,
 };

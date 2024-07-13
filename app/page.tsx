@@ -1,11 +1,14 @@
 import { Hero } from "@/components/appComp/landing";
 import React from "react";
-import { UnifiedWalletProvider } from "@jup-ag/wallet-adapter";
+import Feature from "@/components/appComp/landing/Feature";
+import Footer from "@/components/appComp/landing/Footer";
 
 const Home = () => {
   return (
     <>
       <Hero />
+      <Feature />
+      <Footer />
     </>
   );
 };
