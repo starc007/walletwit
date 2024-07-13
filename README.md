@@ -3,6 +3,8 @@
 Smart crypto analytics with a humorous twist. Track transactions, balances,
 and more in a fun and simplified way.
 
+Demo : [https://walletwit.vercel.app/](https://walletwit.vercel.app/)
+
 ## 🛠️ How to run
 
 1. create `.env` file in your root directory
