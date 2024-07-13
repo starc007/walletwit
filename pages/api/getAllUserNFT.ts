@@ -15,7 +15,7 @@ export default async function handler(
         showGrandTotal: true,
         showNativeBalance: true,
       },
-    });
+    } as any);
     res.status(200).json(response);
   } catch (error) {
     console.log("error", error);
