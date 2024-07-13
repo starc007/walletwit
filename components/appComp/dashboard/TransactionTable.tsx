@@ -49,7 +49,7 @@ const TransactionTable: FC<ITransactionTable> = ({ transactions }) => {
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold"
                     >
-                      timestamp
+                      date
                     </th>
                     <th
                       scope="col"
@@ -81,9 +81,9 @@ const TransactionTable: FC<ITransactionTable> = ({ transactions }) => {
                   {transactions.length > 0 &&
                     transactions.map((tr, idx) => (
                       <tr key={idx}>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
+                        <td className="py-4 pl-4 pr-3 text-sm sm:pl-6 w-96">
                           <div
-                            className={`flex-shrink-0 text-xs w-min px-3 py-1 rounded ${
+                            className={`flex-shrink-0 text-xs w-min px-3 py-1 rounded-md ${
                               clrs[tr.type]?.bg || "bg-gray-100"
                             } ${clrs[tr.type]?.text || "text-gray-700"}`}
                           >
@@ -95,8 +95,17 @@ const TransactionTable: FC<ITransactionTable> = ({ transactions }) => {
                             </div>
                           ) : null}
                         </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-primaryLight">
-                          {tr.timestamp}
+                        <td className="whitespace-nowrap px-3 py-4 text-xs text-primaryLight">
+                          {new Date(tr.timestamp * 1000).toLocaleString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "short",
+                              day: "numeric",
+                              hour: "numeric",
+                              minute: "numeric",
+                            }
+                          )}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-primaryLight w-32">
                           ${" "}
@@ -137,7 +146,7 @@ const TransactionTable: FC<ITransactionTable> = ({ transactions }) => {
                             href={`https://solscan.io/tx/${tr.signature}`}
                             target="_blank"
                             rel="noreferrer"
-                            className="text-blue-600 hover:text-blue-500 underline"
+                            className="text-blue-600 hover:text-blue-500 underline "
                           >
                             {shortenAddress(tr.signature)}
                           </Link>

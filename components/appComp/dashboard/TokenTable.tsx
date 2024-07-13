@@ -15,7 +15,7 @@ const TokenTable: FC<ITokenTable> = ({ tokens, loading }) => {
   const getPrice = (token: IToken) => {
     const price = tokensPrices[token.address]?.price;
     const totalTokens = token.amount / 10 ** token.decimals;
-    return (price * totalTokens).toFixed(2);
+    return isNaN(price) ? 0 : (price * totalTokens).toFixed(2);
   };
 
   return (

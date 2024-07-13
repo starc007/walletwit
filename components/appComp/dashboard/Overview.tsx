@@ -31,7 +31,6 @@ const Overview = () => {
           <BarLoader bar={3} />
           <BarLoader bar={3} />
           <BarLoader bar={3} />
-          <BarLoader bar={3} />
         </>
       ) : (
         <>

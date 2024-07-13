@@ -19,3 +19,20 @@ export function formatNumber(num: number, decimals = 9): string {
     return number.toFixed(2);
   }
 }
+
+export const MONTH_SHORT: {
+  [key: number]: string;
+} = {
+  0: "Jan",
+  1: "Feb",
+  2: "Mar",
+  3: "Apr",
+  4: "May",
+  5: "Jun",
+  6: "Jul",
+  7: "Aug",
+  8: "Sep",
+  9: "Oct",
+  10: "Nov",
+  11: "Dec",
+};
